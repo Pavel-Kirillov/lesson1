@@ -28,7 +28,7 @@ namespace lesson1
         static async Task Main()
         {
             var tasks = new List<Task>();
-            using (StreamWriter fileStream = File.CreateText("out.txt"))
+            using (StreamWriter fileStream = File.CreateText("result.txt"))
             {
                 for (int i = 4; i <= 13; i++)
                 {
