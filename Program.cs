@@ -12,7 +12,7 @@ namespace lesson1
         static async Task HttpResponseToFile(int postId, StreamWriter fileStream, CancellationTokenSource token)
         {
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"https://jsonplaceholder.typicode.com/posts/{postId}");
+            HttpResponseMessage response = await client.GetAsync($"https://jsonplaceholder.typicode.com/posts/{postId}", token.Token);
 
             var content = await response.Content.ReadAsStreamAsync();
 
@@ -22,6 +22,8 @@ namespace lesson1
             {
                 foreach (var element in root.EnumerateObject())
                 {
+                    if (token.IsCancellationRequested)
+                        return;
                     fileStream.WriteLine(element.Value);
                 }
                 fileStream.WriteLine();
